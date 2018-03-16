@@ -266,8 +266,8 @@ gulp.task(
     gulp.watch(
       [
         './pages/**/*.md',
-        './src/templates/*.hbs',
-        './src/components/*.hbs',
+        './src/templates/**/*.hbs',
+        './src/components/**/*.hbs',
         './helpers/*'
       ],
       gulp.series('html')
