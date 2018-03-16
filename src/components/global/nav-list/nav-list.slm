@@ -1,0 +1,8 @@
+- for item in this
+  li.nav-item class="${this[item].children.length ? 'dropdown' : null}"
+    a.nav-link class="${this[item].children.length ? 'dropdown-toggle' : null}" href="/${this[item].url}" id="nav${this}" data-toggle="${this[item].children.length ? 'dropdown' : null}" aria-haspopup="${this[item].children.length ? true : null}" aria-expanded="${this[item].children.length ? false : null}"
+      = this[item].title
+
+    - if this[item].children.length
+      ul.dropdown-menu
+      	== partial('/global/nav-list/nav-list', this[item].children)

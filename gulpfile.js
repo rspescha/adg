@@ -1,7 +1,7 @@
 const gulp = require('gulp')
 const sass = require('gulp-sass')
 const nodeSassGlobbing = require('node-sass-globbing')
-const handlebars = require('gulp-hb')
+const slm = require('gulp-slm')
 const prettify = require('gulp-prettify')
 const frontMatter = require('gulp-front-matter')
 const through = require('through2')
@@ -127,7 +127,7 @@ gulp.task('html', cb => {
     // Read layout file only once
     const layout = (layouts[layoutName] =
       layouts[layoutName] ||
-      fs.readFileSync('./src/templates/' + layoutName + '.hbs'))
+      fs.readFileSync('./src/templates/' + layoutName + '.slm'))
 
     return layout
   }
@@ -213,19 +213,8 @@ gulp.task('html', cb => {
 
       // Compile Handlebars to HTML
       .pipe(
-        handlebars({
-          partials: './src/components/**/*.hbs',
-          parsePartialName: (options, file) => {
-            return path
-              .relative('./src/components', file.path)
-              .replace(path.extname(file.path), '')
-          },
-          helpers: {
-            skipPage: (page, sublevel, options) => {
-              // Skip sublevels in first navigation iteration
-              return !sublevel && page.parents.length
-            }
-          }
+        slm({
+          basePath: './src/components/'
         }).on('error', errorHandler)
       )
 
