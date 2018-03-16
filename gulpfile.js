@@ -214,7 +214,8 @@ gulp.task('html', cb => {
       // Compile Handlebars to HTML
       .pipe(
         slm({
-          basePath: './src/components/'
+          basePath: './src/components/',
+          useCache: false
         }).on('error', errorHandler)
       )
 
@@ -266,8 +267,8 @@ gulp.task(
     gulp.watch(
       [
         './pages/**/*.md',
-        './src/templates/**/*.hbs',
-        './src/components/**/*.hbs',
+        './src/templates/**/*.slm',
+        './src/components/**/*.slm',
         './helpers/*'
       ],
       gulp.series('html')
